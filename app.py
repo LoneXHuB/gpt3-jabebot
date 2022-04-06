@@ -25,12 +25,12 @@ def sql_response():
     session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                          chat_log)
     msg = MessagingResponse()
-    msg.message(answer)
-    
+    msg.message("sql : "+answer)
+
     print("sql : " + str(msg))
     if len(str(msg)) > 1600:
         return str(msg)[1:1599]
-    return "sql : " + str(msg)
+    return  str(msg)
 
 if __name__ == '__main__':
     show_da_way()

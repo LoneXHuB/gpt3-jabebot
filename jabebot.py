@@ -19,7 +19,6 @@ start_sequence = "\nLoneX:"
 restart_sequence = "\n\nPerson:"
 session_prompt = "Hello there, my name is LoneX, how can I help you?"
 gpt = None
-
 def ask(question, chat_log=None):
     prompt_text = f'{chat_log}{restart_sequence}: {question}{start_sequence}:'
     response = openai.Completion.create(
@@ -36,6 +35,7 @@ def ask(question, chat_log=None):
     return str(story)
 
 def show_da_way():
+    global gpt 
     gpt = GPT(engine="davinci",
           temperature=0.5,
           max_tokens=100)
@@ -45,8 +45,10 @@ def show_da_way():
                         'Select substring(brand,1,3) from Car;'))
     gpt.add_example(Example("Find the position of the alphabet ('a') in the first name column 'Audi' from Car table.", 
                         "Select INSTR(brand, BINARY'a') from Car where brand = 'Audi';"))
+    return gpt
                         
 def ask_sql(question):
+    print(f"///////////asking question {question}///////////")
     if gpt is not None:
         output = gpt.submit_request(question)
         return output.choices[0].text
