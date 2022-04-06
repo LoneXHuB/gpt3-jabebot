@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '89djhff9lhkd93'
 
 @app.route('/xenchat', methods=['POST'])
-def jabe():
+def response():
     incoming_msg = request.values['Body']
     chat_log = session.get('chat_log')
     answer = ask(incoming_msg, chat_log)
@@ -18,7 +18,7 @@ def jabe():
     return str(msg)
 
 @app.route('/xenchat-sql', methods=['POST'])
-def jabe():
+def sql_response():
     incoming_msg = request.values['Body']
     chat_log = session.get('chat_log')
     answer = ask_sql(incoming_msg)
