@@ -1,6 +1,6 @@
 from flask import Flask, request, session
 from twilio.twiml.messaging_response import MessagingResponse
-from jabebot import ask, append_interaction_to_chat_log
+from jabebot import ask, append_interaction_to_chat_log, show_da_way,ask_sql
 
 app = Flask(__name__)
 # to reset change secret key
@@ -17,5 +17,17 @@ def jabe():
     msg.message(answer)
     return str(msg)
 
+@app.route('/xenchat-sql', methods=['POST'])
+def jabe():
+    incoming_msg = request.values['Body']
+    chat_log = session.get('chat_log')
+    answer = ask_sql(incoming_msg)
+    session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
+                                                         chat_log)
+    msg = MessagingResponse()
+    msg.message(answer)
+    return str(msg)
+
 if __name__ == '__main__':
+    show_da_way()
     app.run(debug=True)

@@ -4,6 +4,9 @@ from random import choice
 from flask import Flask, request 
 import os
 import openai
+from gpt import GPT
+from gpt import Example
+import json
 
 load_dotenv()
 #openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -15,6 +18,7 @@ completion = openai.Completion()
 start_sequence = "\nLoneX:"
 restart_sequence = "\n\nPerson:"
 session_prompt = "Hello there, my name is LoneX, how can I help you?"
+gpt = None
 
 def ask(question, chat_log=None):
     prompt_text = f'{chat_log}{restart_sequence}: {question}{start_sequence}:'
@@ -30,6 +34,23 @@ def ask(question, chat_log=None):
     )
     story = response['choices'][0]['text']
     return str(story)
+
+def show_da_way():
+    gpt = GPT(engine="davinci",
+          temperature=0.5,
+          max_tokens=100)
+    gpt.add_example(Example('Fetch unique values of color from Car table.', 
+                        'Select distinct color from Car;'))
+    gpt.add_example(Example('Print the first three characters of brand from Car table.', 
+                        'Select substring(brand,1,3) from Car;'))
+    gpt.add_example(Example("Find the position of the alphabet ('a') in the first name column 'Audi' from Car table.", 
+                        "Select INSTR(brand, BINARY'a') from Car where brand = 'Audi';"))
+
+def ask_sql(question):
+    if gpt is not None:
+        output = gpt.submit_request(question)
+        return output.choices[0].text
+    
 
 def append_interaction_to_chat_log(question, answer, chat_log=None):
     if chat_log is None:
