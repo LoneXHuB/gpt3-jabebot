@@ -25,7 +25,7 @@ def sql_response():
     session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                          chat_log)
     msg = MessagingResponse()
-    msg.message("sql : "+answer)
+    msg.message("sql : "+str(answer))
 
     print("sql : " + str(msg))
     if len(str(msg)) > 1600:

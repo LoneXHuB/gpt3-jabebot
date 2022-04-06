@@ -48,11 +48,14 @@ def show_da_way():
     return gpt
                         
 def ask_sql(question):
-    print(f"///////////asking question {question}///////////")
     if gpt is not None:
+        print(f"///////////gpt intialized...asking question {question}///////////")
         output = gpt.submit_request(question)
         return output.choices[0].text
-    
+    else:
+        show_da_way()
+        ask_sql(question)
+    return "ERROR: GPT is None !"
 
 def append_interaction_to_chat_log(question, answer, chat_log=None):
     if chat_log is None:
