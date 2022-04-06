@@ -10,8 +10,8 @@ import json
 
 load_dotenv()
 #openai.api_key = os.getenv("OPENAI_API_KEY")
-HALF1 = "sk-vprLlQYrXwT2OQBYGz"
-HALF2 = "GRT3BlbkFJF8qvXBD0POVFbivsgHF1"
+HALF1 = "sk-eM9uloe6yYSIUew4PVCyT3Bl"
+HALF2 = "bkFJ6hVbyqKbivJ5AyIbkMCl"
 openai.api_key = HALF1+HALF2
 completion = openai.Completion()
 
@@ -45,7 +45,7 @@ def show_da_way():
                         'Select substring(brand,1,3) from Car;'))
     gpt.add_example(Example("Find the position of the alphabet ('a') in the first name column 'Audi' from Car table.", 
                         "Select INSTR(brand, BINARY'a') from Car where brand = 'Audi';"))
-
+                        
 def ask_sql(question):
     if gpt is not None:
         output = gpt.submit_request(question)
