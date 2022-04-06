@@ -54,8 +54,8 @@ def ask_sql(question):
         return output.choices[0].text
     else:
         show_da_way()
-        ask_sql(question)
-    return "ERROR: GPT is None !"
+        return ask_sql(question)
+    
 
 def append_interaction_to_chat_log(question, answer, chat_log=None):
     if chat_log is None:
