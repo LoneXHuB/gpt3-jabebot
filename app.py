@@ -26,7 +26,10 @@ def sql_response():
                                                          chat_log)
     msg = MessagingResponse()
     msg.message(answer)
+    
     print("sql : " + str(msg))
+    if len(str(msg)) > 1600:
+        return str(msg)[1:1599]
     return "sql : " + str(msg)
 
 if __name__ == '__main__':
