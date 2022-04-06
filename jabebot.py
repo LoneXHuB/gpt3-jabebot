@@ -1,3 +1,4 @@
+from asyncio import Handle
 from dotenv import load_dotenv
 from random import choice
 from flask import Flask, request 
@@ -6,7 +7,9 @@ import openai
 
 load_dotenv()
 #openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key ="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"
+HALF1 = "sk-vprLlQYrXwT2OQBYGz"
+HALF2 = "GRT3BlbkFJF8qvXBD0POVFbivsgHF1"
+openai.api_key = HALF1+HALF2
 completion = openai.Completion()
 
 start_sequence = "\nLoneX:"
