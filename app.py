@@ -26,7 +26,8 @@ def sql_response():
                                                          chat_log)
     msg = MessagingResponse()
     msg.message(answer)
-    return str(msg)
+    print("sql : " + str(msg))
+    return "sql : " + str(msg)
 
 if __name__ == '__main__':
     show_da_way()
